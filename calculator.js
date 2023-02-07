@@ -31,14 +31,23 @@ keys.addEventListener('click', e => {
             const operator = calculator.dataset.operator;
             const secondNumber = displayedNum;
 
-            if(firstNumber && operator && previousKeyType !== 'operator'){
-                screen.textContent = calculate(firstNumber, operator, secondNumber);
+            if(firstNumber && operator && previousKeyType !== 'operator' && 
+            previousKeyType !== 'calculate'){
+                const calcValue = calculate(firstNumber, operator, secondNumber);
+                screen.textContent = calcValue;
+                calculator.dataset.firstNumber = displayedNum;
+
+                // update the calculate value as the firstnumber
+                calculator.dataset.firstNumber = calcValue
+            }       
+            else{
+                calculator.dataset.firstNumber = displayedNum
             }
 
             key.classList.add('is-depressed')
             // apply the previous key type operator
             calculator.dataset.previousKeyType = 'operator';
-            calculator.dataset.firstNumber = displayedNum;
+            //calculator.dataset.firstNumber = displayedNum;
             calculator.dataset.operator = action;
         }
 
@@ -53,12 +62,13 @@ keys.addEventListener('click', e => {
             else{
                 screen.textContent = displayedNum + keyContent;
             }
+            calculator.dataset.previousKeyType = 'number';
         }
         if(action === 'decimal') {
             if(!displayedNum.includes('.')){
                 screen.textContent = displayedNum + '.'
             }
-            else if (previousKeyType === 'operator'){
+            else if (previousKeyType === 'operator' || previousKeyType === 'calculate'){
                 screen.textContent = '0';
             }
             calculator.dataset.previousKeyType = 'decimal'
@@ -66,15 +76,24 @@ keys.addEventListener('click', e => {
         if(action === 'clear'){
             screen.textContent = '0'
             calculator.dataset.previousKeyType = 'clear'
+            calculator.dataset.firstNumber = '';
+            calculator.dataset.modValue = '';
+            calculator.dataset.operator = '';
         }
         if(action === 'calculate') {
-            const firstNumber = calculator.dataset.firstNumber
+            let firstNumber = calculator.dataset.firstNumber
             const operator = calculator.dataset.operator;
             const secondNumber = displayedNum;
+
+            if(firstNumber) {
+                if (previousKeyType === 'calculate'){
+                    firstNumber = displayedNum;
+                    secondNumber = calculator.dataset.modValue;
+                }
+                screen.textContent = calculate(firstNumber, operator , secondNumber);
+            }
+            calculator.dataset.modValue = secondNumber;
             calculator.dataset.previousKeyType = 'calculate'
-
-            screen.textContent = calculate(firstNumber, operator , secondNumber);
-
         }
     }
 })
