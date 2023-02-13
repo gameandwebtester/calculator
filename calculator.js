@@ -103,6 +103,19 @@ keys.addEventListener('click', e => {
 function calculate(num1, operator, num2) {
     let result = ''
     // the input of the calculator will be a string so you need to convert it into a float using parseFloat
+
+    switch(true){
+        case operator === 'add': result = parseFloat(num1) + parseFloat(num2);
+        break;
+        case operator === 'subtract': result = parseFloat(num1) - parseFloat(num2);
+        break
+        case operator === 'multiply': result = parseFloat(num1) * parseFloat(num2);
+        break
+        case operator === 'divide': result = parseFloat(num1) / parseFloat(num2);
+        break
+    }
+    return result;
+    /*
     if(operator === 'add'){
         result = parseFloat(num1) + parseFloat(num2);
     }
@@ -114,52 +127,5 @@ function calculate(num1, operator, num2) {
     }
     else if (operator === 'divide') {
         result = parseFloat(num1) / parseFloat(num2);
-    }
-    return result;
-
+    }*/
 }
-
-function add(num1, num2){
-    let sum = num1 + num2;
-    return sum;
-}
-
-function subtract(num1, num2){
-    let sum = num1 - num2;
-    return sum;
-}
-
-function multiply(num1, num2){
-    let sum = num1 * num2;
-    return sum;
-}
-
-function divide(num1, num2){
-    let sum = num1 / num2;
-    return sum;
-}
-
-function operate(a, b){
-    a = 8;
-    let operType = 'div' //prompt('type in the operator').toLowerCase();
-    b = 8;
-
-    let num1 = parseInt(a);
-    let num2 = parseInt(b);
-
-    let plus = add(num1, num2);
-    let multi = multiply(num1, num2);
-    let div = divide(num1, num2);
-
-    if(operType === 'plus'){
-        return (plus);
-    }
-    if(operType === 'multi'){
-        return (multi);
-    }
-    if(operType === 'div'){
-        return (div);
-    }
-
-}
- console.log(operate()); 

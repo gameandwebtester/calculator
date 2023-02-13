@@ -1,0 +1,14 @@
+
+.calculator{
+    max-width: 20%;
+}
+
+.calculator_keys{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    padding: 10px;
+}
+
+h1 {
+    color: rgb(243, 11, 3);
+}
